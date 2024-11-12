@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.logo {
+  width: 120px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav-items > ul {
+  font-size: 20px;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-items > ul > li {
+  padding: 0px;
+  margin: 20px;
+}
+
+.cart {
+  height: 30px;
+  width: 30px;
+  margin-top: -5px;
+}
+
+.search {
+  padding: 10px;
+}
+
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
+/* 
+.res-card {
+  width: 200px;
+  /* height: 310px; */
+/*border-radius: 20px;
+  background-color: #85ffbd;
+  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%);
+  margin: 10px 10px 25px 10px;
+}*/
+
+/* .res-card:hover {
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.foodimg {
+  width: 190px;
+  height: 160px;
+  margin: 5px 5px 0px 5px;
+  border-radius: 20px;
+}
+
+.login-btn:hover {
+  cursor: pointer;
+}
+
+.cart:hover {
+  cursor: pointer;
+}
+
+.user-card {
+  padding: 20px;
+  border: 3px solid black;
+  margin: 20px;
+} */

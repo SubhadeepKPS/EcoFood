@@ -1,0 +1,196 @@
+[
+  {
+    "info": {
+      "id": "23939",
+      "name": "Domino's Pizza",
+      "cloudinaryImageId": "d0450ce1a6ba19ea60cd724471ed54a8",
+      "locality": "Park Circus",
+      "areaName": "Newtown",
+      "costForTwo": "₹400 for two",
+      "cuisines": ["Pizzas", "Italian", "Pastas", "Desserts"],
+      "avgRating": 4.4,
+      "parentId": "2456",
+      "avgRatingString": "4.4",
+      "totalRatingsString": "10K+",
+      "sla": {
+        "deliveryTime": 30,
+        "lastMileTravel": 0.8,
+        "serviceability": "SERVICEABLE",
+        "slaString": "25-30 mins",
+        "lastMileTravelString": "0.8 km",
+        "iconType": "ICON_TYPE_EMPTY"
+      },
+      "availability": {
+        "nextCloseTime": "2024-09-03 01:57:00",
+        "opened": true
+      },
+      "badges": {},
+      "isOpen": true,
+      "type": "F",
+      "badgesV2": {
+        "entityBadges": {
+          "textBased": {},
+          "imageBased": {},
+          "textExtendedBadges": {}
+        }
+      },
+      "aggregatedDiscountInfoV3": {
+        "header": "₹150 OFF",
+        "subHeader": "ABOVE ₹299",
+        "discountTag": "FLAT DEAL"
+      },
+      "differentiatedUi": {
+        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        "differentiatedUiMediaDetails": {
+          "mediaType": "ADS_MEDIA_ENUM_IMAGE",
+          "lottie": {},
+          "video": {}
+        }
+      },
+      "reviewsSummary": {},
+      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      "restaurantOfferPresentationInfo": {},
+      "externalRatings": {
+        "aggregatedRating": {
+          "rating": "--"
+        }
+      },
+      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+    },
+    "analytics": {},
+    "cta": {
+      "link": "swiggy://menu?restaurant_id=23939",
+      "text": "RESTAURANT_MENU",
+      "type": "DEEPLINK"
+    }
+  },
+  {
+    "info": {
+      "id": "179299",
+      "name": "Zafrani's",
+      "cloudinaryImageId": "vmfwltcmmknymzyxdylw",
+      "locality": "New town",
+      "areaName": "Newtown",
+      "costForTwo": "₹250 for two",
+      "cuisines": ["Indian", "Chinese"],
+      "avgRating": 4.3,
+      "parentId": "229106",
+      "avgRatingString": "4.3",
+      "totalRatingsString": "5K+",
+      "sla": {
+        "deliveryTime": 23,
+        "lastMileTravel": 3.9,
+        "serviceability": "SERVICEABLE",
+        "slaString": "20-25 mins",
+        "lastMileTravelString": "3.9 km",
+        "iconType": "ICON_TYPE_EMPTY"
+      },
+      "availability": {
+        "nextCloseTime": "2024-09-03 06:00:00",
+        "opened": true
+      },
+      "badges": {},
+      "isOpen": true,
+      "type": "F",
+      "badgesV2": {
+        "entityBadges": {
+          "imageBased": {},
+          "textExtendedBadges": {},
+          "textBased": {}
+        }
+      },
+      "aggregatedDiscountInfoV3": {
+        "header": "50% OFF",
+        "subHeader": "UPTO ₹100"
+      },
+      "differentiatedUi": {
+        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        "differentiatedUiMediaDetails": {
+          "mediaType": "ADS_MEDIA_ENUM_IMAGE",
+          "lottie": {},
+          "video": {}
+        }
+      },
+      "reviewsSummary": {},
+      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      "restaurantOfferPresentationInfo": {},
+      "externalRatings": {
+        "aggregatedRating": {
+          "rating": "--"
+        }
+      },
+      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+    },
+    "analytics": {},
+    "cta": {
+      "link": "swiggy://menu?restaurant_id=179299",
+      "text": "RESTAURANT_MENU",
+      "type": "DEEPLINK"
+    }
+  },
+  {
+    "info": {
+      "id": "310074",
+      "name": "Jabbar Biryani",
+      "cloudinaryImageId": "skys7dvrh41ls4ss5otf",
+      "locality": "Unitech",
+      "areaName": "Newtown",
+      "costForTwo": "₹200 for two",
+      "cuisines": ["Biryani", "Mughlai"],
+      "avgRating": 4.1,
+      "parentId": "108004",
+      "avgRatingString": "4.1",
+      "totalRatingsString": "1K+",
+      "sla": {
+        "deliveryTime": 25,
+        "lastMileTravel": 3.8,
+        "serviceability": "SERVICEABLE",
+        "slaString": "20-25 mins",
+        "lastMileTravelString": "3.8 km",
+        "iconType": "ICON_TYPE_EMPTY"
+      },
+      "availability": {
+        "nextCloseTime": "2024-09-03 04:00:00",
+        "opened": true
+      },
+      "badges": {},
+      "isOpen": true,
+      "type": "F",
+      "badgesV2": {
+        "entityBadges": {
+          "textBased": {},
+          "imageBased": {},
+          "textExtendedBadges": {}
+        }
+      },
+      "aggregatedDiscountInfoV3": {
+        "header": "₹100 OFF",
+        "subHeader": "ABOVE ₹299",
+        "discountTag": "FLAT DEAL"
+      },
+      "differentiatedUi": {
+        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        "differentiatedUiMediaDetails": {
+          "mediaType": "ADS_MEDIA_ENUM_IMAGE",
+          "lottie": {},
+          "video": {}
+        }
+      },
+      "reviewsSummary": {},
+      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      "restaurantOfferPresentationInfo": {},
+      "externalRatings": {
+        "aggregatedRating": {
+          "rating": "--"
+        }
+      },
+      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+    },
+    "analytics": {},
+    "cta": {
+      "link": "swiggy://menu?restaurant_id=310074",
+      "text": "RESTAURANT_MENU",
+      "type": "DEEPLINK"
+    }
+  }
+]
