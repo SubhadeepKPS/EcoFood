@@ -7,33 +7,56 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-      // Vanilla(older) Redux = DON'T MUTATE THE STATE DIRECTLY
-      // Earlier in Vanilla Redux, the state could not be muatated dirctly. A newState is created by copying the initial state, the newState is updated and returned. Returning of the newState was mandatory.
+      console.log(action.payload, 999);
+      // console.log(action.payload.card.info.id);
 
-      // Redux Toolkit
-      // We can and we have to mutate the state. Returning of state is not required.
-      // const newState = [...state];
-      // newState.items.push(action.payload);
-      // return newState;
+      // state.items.map((item) => console.log("item: ", current(item)));
+      // state.items.length > 0
+      //   ? console.log(current(state.items[0].card.info.id))
+      //   : console.log("no item");
+      // const existingItem = state.items.find((item) => {
+      //   item.card.info.id === action.payload.card.info.id;
+      // });
+      // console.log("existing item: ", existingItem);
 
-      // Redus toolkit uses immer.js Behind The Scenes
+      if (state.items.length > 0) {
+        for (let item = 0; item < state.items.length; item++) {
+          if (Reflect.getPrototypeOf(state.items[item]) == action.payload) {
+            console.log("This is executing");
+            state.items[item].quantity += 1;
+          } else {
+            console.log("Pushed inside here");
+            state.items.push({ ...action.payload, quantity: 1 });
+          }
+          break;
+        }
+      } else {
+        state.items.push({ ...action.payload, quantity: 1 });
+        console.log("Element is getting pushed here");
+      }
 
-      // mutating the state here
-      state.items.push(action.payload);
+      // if (existingItem) {
+      //   console.log("This is executing");
+      //   existingItem.quantity += 1;
+      // } else {
+      // state.items.push({ ...action.payload, quantity: 1 });
+      // }
     },
-    removeItem: (state) => {
-      state.items.pop();
+    removeItem: (state, action) => {
+      const itemIndex = state.items.findIndex(
+        (item) => item.card === action.payload.card
+      );
+      if (itemIndex !== -1) {
+        const item = state.items[itemIndex];
+        if (item.quantity > 1) {
+          item.quantity -= 1;
+        } else {
+          state.items.splice(itemIndex, 1); // Remove item entirely if quantity is 0
+        }
+      }
     },
-    // originalState = ["pizza"]
     clearCart: (state) => {
-      // console.log(state);  // ["pizza"]
-      // console.log(current(state));
-      // state = [];
-      // console.log(state);  // []
-
-      // RTK - either Mutate the existing state or return a new State
-      // state.items.length = 0; // originalState = []
-      return { items: [] }; // this new object will be replaced inside originalState = { items: [] }
+      return { items: [] };
     },
   },
 });

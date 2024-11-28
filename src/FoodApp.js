@@ -30,11 +30,10 @@ import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import LoginPage from "./components/LoginPage";
 
 const About = lazy(() => import("./components/About"));
 const Contact = lazy(() => import("./components/Contact"));
-const Groceries = lazy(() => import("./components/Groceries"));
-const Tailwind = lazy(() => import("./components/Tailwind"));
 const Cart = lazy(() => import("./components/Cart"));
 
 const AppLayout = () => {
@@ -55,8 +54,12 @@ const AppLayout = () => {
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
         <div className="app">
-          <Header />
-          <Outlet />
+          <div className="h-32">
+            <Header />
+          </div>
+          <div className="mt-12">
+            <Outlet />
+          </div>
         </div>
       </UserContext.Provider>
     </Provider>
@@ -64,6 +67,14 @@ const AppLayout = () => {
 };
 
 const appRouter = createBrowserRouter([
+  {
+    path: "/loginPage",
+    element: (
+      <Suspense fallback={<Shimmer />}>
+        <LoginPage />
+      </Suspense>
+    ),
+  },
   {
     path: "/",
     element: (
@@ -109,22 +120,6 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<Shimmer />}>
             <RestaurantMenu />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/groceries",
-        element: (
-          <Suspense fallback={<Shimmer />}>
-            <Groceries />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/tailwind",
-        element: (
-          <Suspense fallback={<Shimmer />}>
-            <Tailwind />
           </Suspense>
         ),
       },

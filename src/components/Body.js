@@ -5,6 +5,8 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useNetworkStatus from "../utils/useNetworkStatus";
 import UserContext from "../utils/UserContext";
+import FrontCarousal from "./FrontCarousal";
+import Error from "./Error";
 
 // When we need to dynamically pass data to components, we need props
 const Body = () => {
@@ -12,6 +14,7 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] =
     useState(listOfRestaurants);
+  const [carousalInfo, setCarousalInfo] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const networkStatus = useNetworkStatus();
@@ -22,37 +25,45 @@ const Body = () => {
 
   // useEffect hook runs after the component renders
   useEffect(() => {
-    try {
-      if (networkStatus === true) {
-        fetchData();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    fetchData();
   }, []);
 
   const fetchData = async (params) => {
     // let data = await fetch(
     //   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.3248384&lng=87.3332736&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     // );
-    let data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
 
-    // console.log(data);
+    try {
+      let data = await fetch(
+        "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      // console.log(data);
+      const json = await data.json();
+      console.log(json);
 
-    const json = await data.json();
-    console.log(json);
-    setListOfRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurants(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+      setListOfRestaurants(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setFilteredRestaurants(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setCarousalInfo(
+        json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info
+      );
 
-    // console.log(
-    //   json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    // );
+      // console.log(
+      //   json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      // );
+    } catch (err) {
+      console.error("Error: ", err);
+      return (
+        <div>
+          <h1>Data could not be fetched properly.</h1>
+        </div>
+      );
+    }
   };
 
   const { loggedInUser, setUserName } = useContext(UserContext);
@@ -71,7 +82,7 @@ const Body = () => {
       <Shimmer />
     </h1>
   ) : (
-    <div className="body">
+    <div className="">
       <div className="search">
         <input
           className="input-box"
@@ -125,32 +136,17 @@ const Body = () => {
           ></input>
         </div>
       </div>
+      <div>
+        <FrontCarousal info={carousalInfo} />
+      </div>
       <div className="flex justify-center">
         <div className="flex flex-wrap px-20 m-10">
-          {/* <RestaurantCard
-          resName="Meghana foods"
-          cuisine="Biryani, North Indian Asian"
-        />
-        <RestaurantCard resName="Dominos" cuisine="Pizzas and Pancakes" />
-        <RestaurantCard
-          resName="Welcome Hotel"
-          cuisine="Bengali Lunch and Dinner"
-        />
-        <RestaurantCard resName="Step-In" cuisine="Strawberry Pan Cake" /> */}
-
-          {/* <RestaurantCard resData={resList[0]} />
-        <RestaurantCard resData={resList[1]} />
-        <RestaurantCard resData={resList[2]} /> */}
-
           {filteredRestaurants.map((restaurant) => (
             // Not using keys (not acceptable) <<<<< Index as keys <<<<< unique id (best practice)
             <Link
               key={restaurant.info.id}
               to={"/restaurants/" + restaurant.info.id}
             >
-              {/** If therestaurant is promoted then add a promoted label to it */}
-              {/* {console.log("Resdata....", restaurant)} */}
-
               {restaurant.info.isOpen ? (
                 <RestaurantCardPromoted resData={restaurant} />
               ) : (
@@ -158,6 +154,7 @@ const Body = () => {
               )}
             </Link>
           ))}
+          {/* <RestaurantCardPromoted resData={filteredRestaurants[7]} /> */}
         </div>
       </div>
     </div>

@@ -2,5 +2,8 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontSize": 14
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 16,
+  "debug.console.fontSize": 16,
+  "scm.inputFontSize": 16
 }

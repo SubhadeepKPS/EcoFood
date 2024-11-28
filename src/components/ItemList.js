@@ -9,6 +9,8 @@ const ItemList = ({ items }) => {
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {
+    console.log(item, 200);
+    // item.quantity = 0;
     // Dispatch an action
     dispatch(addItem(item));
   };
@@ -33,7 +35,11 @@ const ItemList = ({ items }) => {
               )}
             </span>
             <p className="text-xl font-bold">{item.card.info.name}</p>
-            <p className="font-bold">₹ {item.card.info.price / 100}</p>
+            <p className="font-bold">
+              ₹{" "}
+              {item?.card?.info?.price / 100 ||
+                item?.card?.info?.defaultPrice / 100}
+            </p>
             <p>{item.card.info.description}</p>
           </div>
           <div className="grid justify-self-center">

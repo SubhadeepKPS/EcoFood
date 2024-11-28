@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+}
+
 /* .header {
   display: flex;
   justify-content: space-between;
