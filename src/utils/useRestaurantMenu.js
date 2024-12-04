@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { MENU_API } from "../utils/constants";
+import useGeolocation from "./useGeolocation";
 
 const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
+  const location = useGeolocation();
+  console.log("Menu location: ", location);
+
   // fetch data
 
   useEffect(() => {
@@ -11,7 +15,11 @@ const useRestaurantMenu = (resId) => {
 
   const fetchMenu = async () => {
     // const data = await fetch(
-    //   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.5753931&lng=88.47979029999999&restaurantId=38942&catalog_qa=undefined&submitAction=ENTER"
+    //   "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.5753931&lng=88.47979029999999&restaurantId=38942&catalog_qa=undefined&submitAction=ENTER"
+    // );
+
+    // const data = await fetch(
+    //   `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${location.coordinates.latitude}&lng=${location.coordinates.longitude}&restaurantId=38942&catalog_qa=undefined&submitAction=ENTER`
     // );
 
     const data = await fetch(

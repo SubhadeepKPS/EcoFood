@@ -25,12 +25,20 @@ import Body from "./components/Body";
 // import About from "./components/About";
 // import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import LoginPage from "./components/LoginPage";
+import useGeolocation from "./utils/useGeolocation";
+import GeolocationContext from "./utils/GeolocationContext";
+import AddressCumPayment from "./components/AddressCumPayment";
 
 const About = lazy(() => import("./components/About"));
 const Contact = lazy(() => import("./components/Contact"));
@@ -38,8 +46,8 @@ const Cart = lazy(() => import("./components/Cart"));
 
 const AppLayout = () => {
   // console.log(<Body />);
-
   const [userName, setUserName] = useState();
+  const location = useGeolocation();
 
   // authentication
   useEffect(() => {
@@ -48,19 +56,21 @@ const AppLayout = () => {
       username: "Subhadeep kumar Parai",
     };
     setUserName(data.username);
-  }, []);
+  }, [location]);
 
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <div className="app">
-          <div className="h-32">
-            <Header />
+        <GeolocationContext.Provider value={{ location: location }}>
+          <div className="app">
+            <div className="h-32">
+              <Header />
+            </div>
+            <div className="mt-12">
+              <Outlet />
+            </div>
           </div>
-          <div className="mt-12">
-            <Outlet />
-          </div>
-        </div>
+        </GeolocationContext.Provider>
       </UserContext.Provider>
     </Provider>
   );
@@ -68,7 +78,7 @@ const AppLayout = () => {
 
 const appRouter = createBrowserRouter([
   {
-    path: "/loginPage",
+    path: "/login",
     element: (
       <Suspense fallback={<Shimmer />}>
         <LoginPage />
@@ -120,6 +130,14 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<Shimmer />}>
             <RestaurantMenu />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <AddressCumPayment />
           </Suspense>
         ),
       },

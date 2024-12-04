@@ -1,9 +1,18 @@
 import React, { useRef, useState } from "react";
 import loginPagePic from "../../assets/Flying Burger PNG Image - 960x960.png";
-import { useValidateSignIn, useValidateSignUp } from "../utils/validation";
+import { validateSignIn, validateSignUp } from "../utils/validation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const name = useRef(null);
   const email_phNo = useRef(null);
   const password = useRef(null);
@@ -15,14 +24,76 @@ const LoginPage = () => {
 
     // Validate the email and password
     const validationResult = name.current
-      ? useValidateSignUp(
+      ? validateSignUp(
           name.current.value,
           email_phNo.current.value,
           password.current.value
         )
-      : useValidateSignIn(email_phNo.current.value, password.current.value);
+      : validateSignIn(email_phNo.current.value, password.current.value);
 
     console.log(validationResult);
+    setErrorMessage(validationResult);
+    if (validationResult) return;
+    if (!isSignIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        email_phNo.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log("User signed up: ", user);
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          })
+            .then(() => {
+              // Profile updated!
+              // ...
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          setIsSignIn(true);
+
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode, " - ", errorMessage);
+          // ..
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email_phNo.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("User signed in: ", user);
+          navigate("/");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode, " - ", errorMessage);
+        });
+    }
+
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(function (position) {
+    //     const latitude = position.coords.latitude;
+    //     const longitude = position.coords.longitude;
+    //     console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    //   });
+    // } else {
+    //   console.log("Geolocation is not supported by this browser.");
+    // }
   };
 
   const handleToggleSignIn = () => {
@@ -67,6 +138,9 @@ const LoginPage = () => {
                 className="px-6 w-full h-12 border-2 border-slate-600 rounded-md bg-slate-800 focus:bg-slate-800"
               ></input>
             </div>
+            <div>
+              <p className="text-red-600">{errorMessage}</p>
+            </div>
             <button
               onClick={() => handleSubmitButton()}
               className="w-full h-12 bg-slate-50 rounded-md"
@@ -75,7 +149,7 @@ const LoginPage = () => {
             </button>
             <p
               onClick={() => handleToggleSignIn()}
-              className="text-red-600 cursor-pointer"
+              className="text-slate-300 cursor-pointer"
             >
               {isSignIn
                 ? "New to EcoFood? Sign Up Now.."

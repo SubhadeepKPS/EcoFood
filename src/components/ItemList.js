@@ -9,9 +9,10 @@ const ItemList = ({ items }) => {
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {
-    console.log(item, 200);
     // item.quantity = 0;
     // Dispatch an action
+    // item.quantity = 1;
+    console.log(item, 200);
     dispatch(addItem(item));
   };
 

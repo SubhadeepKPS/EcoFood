@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import useNetworkStatus from "../utils/useNetworkStatus";
 import UserContext from "../utils/UserContext";
 import FrontCarousal from "./FrontCarousal";
-import Error from "./Error";
+import useGeolocation from "../utils/useGeolocation";
+// import Error from "./Error";
 
 // When we need to dynamically pass data to components, we need props
 const Body = () => {
@@ -17,7 +18,13 @@ const Body = () => {
   const [carousalInfo, setCarousalInfo] = useState([]);
 
   const [searchText, setSearchText] = useState("");
+  // const [location, setLocation] = useState(null);
+
   const networkStatus = useNetworkStatus();
+  const location = useGeolocation();
+
+  // console.log("location: ", location);
+  // console.log(location.coordinates.latitude, location.coordinates.longitude);
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
@@ -26,18 +33,48 @@ const Body = () => {
   // useEffect hook runs after the component renders
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [location]);
 
-  const fetchData = async (params) => {
+  const fetchData = async () => {
     // let data = await fetch(
     //   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.3248384&lng=87.3332736&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     // );
 
     try {
+      // https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.3281152&lng=87.3332736&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING
+
+      // let data = await fetch(
+      //   "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=22.5770435&lng=88.4497761&carousel=true&third_party_vendor=1"
+      // );
+
+      // https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=22.5770435&lng=88.4497761&carousel=true&third_party_vendor=1
+
+      // let data = await fetch(
+      //   "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=22.3313928&lng=87.3376351&carousel=true&third_party_vendor=1"
+      // );
+      // latitude : 22.3281152
+      // longitude : 87.3332736
+
+      // ? For Newtown, Kolkata
       let data = await fetch(
-        "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        `https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
       );
-      // console.log(data);
+
+      // ? For KGP
+      // let data = await fetch(
+      //   "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.3281152&lng=87.3332736&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      // );
+
+      console.log("location: ", location);
+      const lat = location.coordinates.latitude;
+      const lng = location.coordinates.longitude;
+      console.log(`lat: ${lat}, lng: ${lng}`);
+
+      // ? With respect to Location Coordinates
+      // let data = await fetch(
+      //   `https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      // );
+      console.log(data);
       const json = await data.json();
       console.log(json);
 
@@ -77,7 +114,7 @@ const Body = () => {
   }
 
   // Conditional Rendering
-  return listOfRestaurants?.length === 0 ? (
+  return !listOfRestaurants?.length ? (
     <h1>
       <Shimmer />
     </h1>
@@ -141,6 +178,7 @@ const Body = () => {
       </div>
       <div className="flex justify-center">
         <div className="flex flex-wrap px-20 m-10">
+          {console.log("FilRes", filteredRestaurants)}
           {filteredRestaurants.map((restaurant) => (
             // Not using keys (not acceptable) <<<<< Index as keys <<<<< unique id (best practice)
             <Link

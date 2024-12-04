@@ -3,3 +3,6 @@
 /coverage
 .parcel-cache
 .vs
+
+# Local Netlify folder
+.netlify
