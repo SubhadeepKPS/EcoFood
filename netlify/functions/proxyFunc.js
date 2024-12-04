@@ -1,9 +1,12 @@
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
-exports.handler = async (event, context) => {
+const handler = async (event, context) => {
   try {
     // Define the target URL (Swiggy API endpoint)
-    const apiUrl = "https://api.swiggy.com/some-endpoint";
+    // const apiUrl = "https://api.swiggy.com/some-endpoint";
+    const apiUrl =
+      "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
     // Forward the request to the Swiggy API
     const response = await fetch(apiUrl, {
@@ -29,3 +32,5 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
+export default handler;
