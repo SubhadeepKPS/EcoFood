@@ -7,6 +7,7 @@ import useNetworkStatus from "../utils/useNetworkStatus";
 import UserContext from "../utils/UserContext";
 import FrontCarousal from "./FrontCarousal";
 import useGeolocation from "../utils/useGeolocation";
+import handler from "../../netlify/functions/proxyFunc";
 // import Error from "./Error";
 
 // When we need to dynamically pass data to components, we need props
@@ -22,6 +23,7 @@ const Body = () => {
 
   const networkStatus = useNetworkStatus();
   const location = useGeolocation();
+  // const fetchProxyHandler = handler;
 
   // console.log("location: ", location);
   // console.log(location.coordinates.latitude, location.coordinates.longitude);
@@ -56,9 +58,14 @@ const Body = () => {
       // longitude : 87.3332736
 
       // ? For Newtown, Kolkata
-      let data = await fetch(
-        `https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
-      );
+      // let data = await fetch(
+      //   `https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      // );
+
+      const { body } = handler();
+      const data = body;
+      const { statusCode } = handler();
+      console.log("statCode: ", statusCode);
 
       // ? For KGP
       // let data = await fetch(
