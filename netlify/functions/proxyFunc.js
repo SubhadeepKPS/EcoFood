@@ -5,8 +5,11 @@ const handler = async (event, context) => {
   try {
     // Define the target URL (Swiggy API endpoint)
     // const apiUrl = "https://api.swiggy.com/some-endpoint";
+    // const apiUrl =
+    //   "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+
     const apiUrl =
-      "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.5770435&lng=88.4497761&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+      "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.3281152&lng=87.3332736&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
     // Forward the request to the Swiggy API
     const response = await fetch(apiUrl, {
